@@ -1,4 +1,4 @@
-package com.capn.etvoidminerall.jei;
+package com.kaduvill.etvoidminerall.jei;
 
 import java.util.ArrayList;
 import java.util.Collections;

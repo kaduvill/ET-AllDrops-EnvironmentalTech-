@@ -1,6 +1,6 @@
-package com.capn.etvoidminerall.jei;
+package com.kaduvill.etvoidminerall.jei;
 
-import com.capn.etvoidminerall.ETVoidMinerAllDrops;
+import com.kaduvill.etvoidminerall.ETVoidMinerAllDrops;
 import com.valkyrieofnight.et.m_multiblocks.m_voidminer.registry.ITargetableRegistry;
 import com.valkyrieofnight.vliblegacy.lib.stack.WeightedStackBase;
 import java.util.ArrayList;

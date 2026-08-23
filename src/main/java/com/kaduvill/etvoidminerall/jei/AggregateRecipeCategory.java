@@ -1,4 +1,4 @@
-package com.capn.etvoidminerall.jei;
+package com.kaduvill.etvoidminerall.jei;
 
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;

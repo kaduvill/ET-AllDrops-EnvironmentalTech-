@@ -1,4 +1,4 @@
-package com.capn.etvoidminerall.jei;
+package com.kaduvill.etvoidminerall.jei;
 
 import com.valkyrieofnight.et.m_multiblocks.m_voidminer.m_botanic.VMBotanic;
 import com.valkyrieofnight.et.m_multiblocks.m_voidminer.m_botanic.features.BBlocks;
