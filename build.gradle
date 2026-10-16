@@ -1,3 +1,5 @@
+import com.gtnewhorizons.retrofuturagradle.mcp.InjectTagsTask
+
 plugins {
     id 'java'
     id 'com.gtnewhorizons.retrofuturagradle' version '2.0.2'
@@ -26,6 +28,12 @@ minecraft {
     username.set('Developer')
     javaCompatibilityVersion.set(8)
     jvmLanguageVersion.set(JavaLanguageVersion.of(8))
+    injectedTags.put('VERSION', project.version.toString())
+    injectedTags.put('MC_VERSION', mcVersion.get())
+}
+
+tasks.named('injectTags', InjectTagsTask) {
+    outputClassName.set('com.kaduvill.etvoidminerall.Tags')
 }
 
 repositories {
@@ -70,9 +78,18 @@ tasks.named('compileJava', JavaCompile) {
     options.release.set(8)
 }
 
+tasks.named('compileInjectedTagsJava', JavaCompile) {
+    options.release.set(8)
+}
+
 processResources {
-    inputs.property('version', project.version)
+    inputs.property('version', project.version.toString())
+    inputs.property('mcversion', minecraft.mcVersion.get())
     filesMatching('mcmod.info') {
-        expand('version': project.version)
+        expand(version: project.version.toString(), mcversion: minecraft.mcVersion.get())
     }
+}
+
+tasks.named('jar', Jar) {
+    from('LICENSE')
 }

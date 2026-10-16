@@ -4,7 +4,7 @@
     "name": "Environmental Tech Void Miner All Drops",
     "description": "Adds  JEI pages for Environmental Tech Void Miners. Pages shows all drops per miner, meant for easier overview, but most important [+] transfer recipe button QoL",
     "version": "${version}",
-    "mcversion": "1.12.2",
+    "mcversion": "${mcversion}",
     "url": "",
     "updateUrl": "",
     "authorList": ["kaduvill"],
