@@ -1,5 +1,6 @@
 package com.kaduvill.etvoidminerall.jei;
 
+import com.kaduvill.etvoidminerall.loot.VoidMinerDrop;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,16 +20,20 @@ public final class AggregateRecipeWrapper implements IRecipeWrapper {
     private static final int RIGHT_PAGE_X = AggregateRecipeCategory.WIDTH - PAGE_BUTTON_WIDTH;
     private final VoidMinerType type;
     private final int tier;
-    private final List<ItemStack> drops;
+    private final List<VoidMinerDrop> drops;
+    private final List<ItemStack> outputs;
     private IGuiItemStackGroup itemStacks;
     private int page;
     private int pageSize;
     private int footerY = -1;
 
-    public AggregateRecipeWrapper(VoidMinerType type, int tier, List<ItemStack> drops) {
+    public AggregateRecipeWrapper(VoidMinerType type, int tier, List<VoidMinerDrop> drops) {
         this.type = type;
         this.tier = tier;
         this.drops = Collections.unmodifiableList(new ArrayList<>(drops));
+        List<ItemStack> stacks = new ArrayList<>(drops.size());
+        for (VoidMinerDrop drop : drops) stacks.add(drop.getStack());
+        this.outputs = Collections.unmodifiableList(stacks);
     }
 
     public VoidMinerType getType() {
@@ -39,14 +44,14 @@ public final class AggregateRecipeWrapper implements IRecipeWrapper {
         return tier;
     }
 
-    public List<ItemStack> getDrops() {
+    public List<VoidMinerDrop> getDrops() {
         return drops;
     }
 
     @Override
     public void getIngredients(IIngredients ingredients) {
         // Outputs control JEI's recipe/usage lookup: R finds this page and U does not.
-        ingredients.setOutputs(VanillaTypes.ITEM, drops);
+        ingredients.setOutputs(VanillaTypes.ITEM, outputs);
     }
 
     @Override
@@ -119,7 +124,7 @@ public final class AggregateRecipeWrapper implements IRecipeWrapper {
         }
         // Void Miner drops are products. Keep every concrete drop in its own output slot.
         itemStacks.init(index, false, x, y);
-        itemStacks.set(index, drops.get(index));
+        itemStacks.set(index, drops.get(index).getStack());
     }
 
     private int getPageCount() {

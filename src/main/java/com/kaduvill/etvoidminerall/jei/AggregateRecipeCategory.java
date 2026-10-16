@@ -1,5 +1,7 @@
 package com.kaduvill.etvoidminerall.jei;
 
+import com.kaduvill.etvoidminerall.loot.VoidMinerDrop;
+import java.util.List;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
@@ -66,5 +68,21 @@ public final class AggregateRecipeCategory implements IRecipeCategory<AggregateR
     public void setRecipe(IRecipeLayout recipeLayout, AggregateRecipeWrapper recipeWrapper, IIngredients ingredients) {
         IGuiItemStackGroup itemStacks = recipeLayout.getItemStacks();
         recipeWrapper.bindLayout(itemStacks, pageSize, footerY);
+        List<VoidMinerDrop> drops = recipeWrapper.getDrops();
+        itemStacks.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
+            if (input || slotIndex < 0 || slotIndex >= drops.size()) return;
+            VoidMinerDrop drop = drops.get(slotIndex);
+            tooltip.add(I18n.format("jei.etvoidminerall.base_chance", formatChance(drop.getBaseChance())));
+            if (drop.getLens().isEmpty()) {
+                tooltip.add(I18n.format("jei.etvoidminerall.no_matching_lens"));
+            } else {
+                tooltip.add(I18n.format("jei.etvoidminerall.lens_chance",
+                        drop.getLens().getDisplayName(), formatChance(drop.getLensChance())));
+            }
+        });
+    }
+
+    private static String formatChance(float chance) {
+        return Float.isNaN(chance) ? I18n.format("jei.etvoidminerall.chance_unavailable") : chance + "%";
     }
 }

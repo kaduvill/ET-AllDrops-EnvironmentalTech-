@@ -1,8 +1,9 @@
 package com.kaduvill.etvoidminerall.jei;
 
 import com.kaduvill.etvoidminerall.ETVoidMinerAllDrops;
+import com.kaduvill.etvoidminerall.loot.VoidMinerDrop;
+import com.kaduvill.etvoidminerall.loot.VoidMinerDrops;
 import com.valkyrieofnight.et.m_multiblocks.m_voidminer.registry.ITargetableRegistry;
-import com.valkyrieofnight.vliblegacy.lib.stack.WeightedStackBase;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -52,7 +53,7 @@ public final class AggregateJeiPlugin implements IModPlugin {
             ITargetableRegistry[] registries = type.getRegistries();
             StringBuilder counts = new StringBuilder();
             for (int index = 0; index < registries.length; index++) {
-                List<ItemStack> drops = copyUniqueDrops(registries[index]);
+                List<VoidMinerDrop> drops = VoidMinerDrops.read(registries[index]);
                 typeRecipes.add(new AggregateRecipeWrapper(type, index + 1, drops));
                 if (index > 0) counts.append(", ");
                 counts.append("T").append(index + 1).append("=").append(drops.size());
@@ -62,21 +63,5 @@ public final class AggregateJeiPlugin implements IModPlugin {
             ETVoidMinerAllDrops.LOGGER.debug("{} aggregate drops: {}", type.getName(), counts);
         }
         ETVoidMinerAllDrops.LOGGER.debug("Prepared {} Environmental Tech aggregate Void Miner recipes", total);
-    }
-
-    private static List<ItemStack> copyUniqueDrops(ITargetableRegistry registry) {
-        List<ItemStack> drops = new ArrayList<>();
-        for (WeightedStackBase weighted : registry.getList()) {
-            ItemStack stack = weighted.getMainStack();
-            if (stack == null || stack.isEmpty()) continue;
-            boolean duplicate = false;
-            for (ItemStack existing : drops) {
-                if (!ItemStack.areItemsEqual(existing, stack) || !ItemStack.areItemStackTagsEqual(existing, stack)) continue;
-                duplicate = true;
-                break;
-            }
-            if (!duplicate) drops.add(stack.copy());
-        }
-        return drops;
     }
 }

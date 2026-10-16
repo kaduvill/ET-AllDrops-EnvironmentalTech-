@@ -4,3 +4,7 @@ jei.etvoidminerall.category.botanic=Void Botanic Miner - All Drops
 jei.etvoidminerall.tier_drops=Tier %s — %s possible drops
 jei.etvoidminerall.page=Page %s / %s
 jei.etvoidminerall.mod_name=Environmental Tech
+jei.etvoidminerall.base_chance=§7Base chance: %s
+jei.etvoidminerall.lens_chance=%s chance: %s
+jei.etvoidminerall.no_matching_lens=No matching lens
+jei.etvoidminerall.chance_unavailable=Unavailable

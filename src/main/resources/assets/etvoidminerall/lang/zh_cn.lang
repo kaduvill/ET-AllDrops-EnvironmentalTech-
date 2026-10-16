@@ -4,3 +4,7 @@ jei.etvoidminerall.category.botanic=虚空植物采掘机 - 所有产物
 jei.etvoidminerall.tier_drops=%s级 — %s种可能的掉落物
 jei.etvoidminerall.page=页码 %s / %s
 jei.etvoidminerall.mod_name=环境科技
+jei.etvoidminerall.base_chance=§7基础几率：%s
+jei.etvoidminerall.lens_chance=%s几率：%s
+jei.etvoidminerall.no_matching_lens=无匹配透镜
+jei.etvoidminerall.chance_unavailable=不可用
