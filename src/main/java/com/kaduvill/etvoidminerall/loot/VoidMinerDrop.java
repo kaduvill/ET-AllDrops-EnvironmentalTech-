@@ -16,7 +16,7 @@ public final class VoidMinerDrop {
     }
 
     public ItemStack getStack() {
-        return stack;
+        return stack.copy();
     }
 
     public float getBaseChance() {
@@ -24,7 +24,7 @@ public final class VoidMinerDrop {
     }
 
     public ItemStack getLens() {
-        return lens;
+        return lens.copy();
     }
 
     public float getLensChance() {

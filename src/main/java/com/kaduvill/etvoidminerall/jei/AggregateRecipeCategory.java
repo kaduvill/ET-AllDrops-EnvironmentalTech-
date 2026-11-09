@@ -10,6 +10,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 
 public final class AggregateRecipeCategory implements IRecipeCategory<AggregateRecipeWrapper> {
     static final int COLUMNS = 9;
@@ -73,11 +74,12 @@ public final class AggregateRecipeCategory implements IRecipeCategory<AggregateR
             if (input || slotIndex < 0 || slotIndex >= drops.size()) return;
             VoidMinerDrop drop = drops.get(slotIndex);
             tooltip.add(I18n.format("jei.etvoidminerall.base_chance", formatChance(drop.getBaseChance())));
-            if (drop.getLens().isEmpty()) {
+            ItemStack lens = drop.getLens();
+            if (lens.isEmpty()) {
                 tooltip.add(I18n.format("jei.etvoidminerall.no_matching_lens"));
             } else {
                 tooltip.add(I18n.format("jei.etvoidminerall.lens_chance",
-                        drop.getLens().getDisplayName(), formatChance(drop.getLensChance())));
+                        lens.getDisplayName(), formatChance(drop.getLensChance())));
             }
         });
     }

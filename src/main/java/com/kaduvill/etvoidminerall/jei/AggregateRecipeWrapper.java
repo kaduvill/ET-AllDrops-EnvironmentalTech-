@@ -21,7 +21,6 @@ public final class AggregateRecipeWrapper implements IRecipeWrapper {
     private final VoidMinerType type;
     private final int tier;
     private final List<VoidMinerDrop> drops;
-    private final List<ItemStack> outputs;
     private IGuiItemStackGroup itemStacks;
     private int page;
     private int pageSize;
@@ -31,9 +30,6 @@ public final class AggregateRecipeWrapper implements IRecipeWrapper {
         this.type = type;
         this.tier = tier;
         this.drops = Collections.unmodifiableList(new ArrayList<>(drops));
-        List<ItemStack> stacks = new ArrayList<>(drops.size());
-        for (VoidMinerDrop drop : drops) stacks.add(drop.getStack());
-        this.outputs = Collections.unmodifiableList(stacks);
     }
 
     public VoidMinerType getType() {
@@ -51,6 +47,9 @@ public final class AggregateRecipeWrapper implements IRecipeWrapper {
     @Override
     public void getIngredients(IIngredients ingredients) {
         // Outputs control JEI's recipe/usage lookup: R finds this page and U does not.
+        // Give JEI fresh stacks so a transfer handler cannot alter the saved recipe.
+        List<ItemStack> outputs = new ArrayList<>(drops.size());
+        for (VoidMinerDrop drop : drops) outputs.add(drop.getStack());
         ingredients.setOutputs(VanillaTypes.ITEM, outputs);
     }
 

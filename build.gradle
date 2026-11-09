@@ -61,9 +61,21 @@ repositories {
     }
 }
 
+// Resolve separately so Gradle keeps the old development library on the classpath.
+configurations {
+    modernStackApi {
+        canBeConsumed = false
+        transitive = false
+    }
+}
+
 dependencies {
     implementation(rfg.deobf('curse.maven:environmental-tech-245453:2691536')) {transitive = false}
     implementation(rfg.deobf('curse.maven:valkyrielib-245480:2691542')) {transitive = false}
+
+    // Only the modern adapter needs this API. Keep the old pair for development runs.
+    modernStackApi(rfg.deobf('curse.maven:valkyrielib-245480:9414642'))
+    compileOnly(files(configurations.modernStackApi))
 
     // HEI versions
     implementation(rfg.deobf('maven.modrinth:had-enough-items:4.31.2')) {transitive = false}
